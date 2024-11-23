@@ -13,6 +13,7 @@ print('''
                                                             
 
 ''')
+print("2024* made by Jonathan Luong")
 m = input("Press y to start (n to close): ").lower()
 if m == "y" and m.isalpha():
     pass
@@ -26,15 +27,8 @@ import time
 game_over = True
 still_on = True
 
+
 card_art = [
-    ["""
-    .------.
-    |1--.  |
-    | :/\: |
-    | (__) |
-    | '--'1|
-    `------'
-    """],
     ["""
     .------.
     |2--.  |
@@ -109,6 +103,14 @@ card_art = [
     """],
     ["""
     .------.
+    |11-.  |
+    | :/\: |
+    | (__) |
+    | '-'11|
+    `------'
+    """],
+    ["""
+    .------.
     |J--.  |
     | :(): |
     | ()() |
@@ -136,20 +138,35 @@ print("\n" * 40)
 def display_cards(cards):
     lines = []
     for card in cards:
-        art_lines = card_art[card-1][0].split('\n')
+        art_lines = card_art[card-2][0].split('\n')
         if not lines:
             lines = [''] * len(art_lines)
         for i, line in enumerate(art_lines):
             lines[i] += line
     print('\n'.join(lines))
 
-def change(a,b):
+def change(a, b):
+    ace_art = [
+    ["""
+    .------.
+    |1--.  |
+    | :/\: |
+    | (__) |
+    | '--'1|
+    `------'
+    """],
+    ]
     if a > 21 and 11 in user_card:
         user_card.remove(11)
         user_card.append(1)
+        card_art[-1] = ace_art[0]
+        print("User has an Ace and it was converted from 11 to 1")
     elif b > 21 and 11 in computer_card:
         computer_card.remove(11)
         computer_card.append(1)
+        card_art[-1] = ace_art[0]
+        print("Computer has an Ace and it was converted from 11 to 1")
+
 
 def new_r(a):
     ask = input("New rounds?(y/n): ").lower()
@@ -165,6 +182,7 @@ def new_r(a):
         else:
             print("same amount of money duh")
         a = False
+        print("2024* made by Jonathan Luong")
         quit()
     else:
         quit()
@@ -213,7 +231,7 @@ while game_over:
     to_c = sum(computer_card)
     to_u = sum(user_card)
 
-    print("Your card is: >>> ")
+    print("Your card is: >>> ", user_card)
     display_cards(user_card)
     print("Computer card is >>> ", why)
 
@@ -252,9 +270,9 @@ while game_over:
         to_un = sum(user_card)
         to_cn = sum(computer_card)
 
-        print("Your cards >>> ")
+        print("Your cards >>> ", user_card)
         display_cards(user_card)
-        print("\nTarget cards >>> ", end = "")
+        print("\nTarget cards >>> ",computer_card, end = "")
         display_cards(computer_card)
 
         if to_un > to_cn and to_un <= 21:
